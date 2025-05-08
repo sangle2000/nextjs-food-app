@@ -7,8 +7,9 @@ import {MealItemType} from "@/utils/Type";
 import DOMPurify from "isomorphic-dompurify";
 import {notFound} from "next/navigation";
 
-export async function generateMetadata({ params }: { params: { mealSlug: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ mealSlug: string }> }) {
     const { mealSlug } = await params
+
     const meal: MealItemType = getMeal(mealSlug)
 
     if (!meal) {
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: { mealSlug: string 
     }
 }
 
-export default async function MealDetailsPage({ params }: { params: { mealSlug: string } }) {
+export default async function MealDetailsPage({ params }: { params: Promise<{ mealSlug: string }> }) {
     const { mealSlug } = await params
     const meal: MealItemType = getMeal(mealSlug)
 
